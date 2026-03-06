@@ -49,6 +49,10 @@ if __name__ == "__main__":
         stratify=y
     )
 
+    print("Original dataset:")
+    model = train_model(X_train, y_train)
+    results = evaluate_model(model, X_test, y_test, s_test)
+
     # downsampling
     X_train, y_train, s_train = downsample_group(
         X_train, y_train, s_train,
@@ -59,6 +63,7 @@ if __name__ == "__main__":
 
     X_train = preprocessor.fit_transform(X_train)
     X_test = preprocessor.transform(X_test)
-    model = train_model(X_train, y_train)
 
+    print("After downsampling:")
+    model = train_model(X_train, y_train)
     results = evaluate_model(model, X_test, y_test, s_test)
