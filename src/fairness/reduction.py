@@ -1,12 +1,11 @@
 from fairlearn.reductions import DemographicParity, EqualizedOdds, ExponentiatedGradient
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
-from sklearn.pipeline import Pipeline
 from src.dataset.dataset import load_data, prepare_data, downsample_group
 from src.models.baseline import evaluate_model
 
 
-def train_fairness_model(X_train, y_train, s_train, preprocessor, constraint_name="demographic_parity"):
+def train_fairness_model(X_train, y_train, s_train, constraint_name="demographic_parity"):
     """
     Train a fairness-aware model using reduction method.
     constraint_name:
@@ -60,7 +59,6 @@ if __name__ == "__main__":
     X_test = preprocessor.transform(X_test)
     fairness_model_dp = train_fairness_model(
         X_train, y_train, s_train,
-        preprocessor,
         constraint_name="demographic_parity"
     )
 
@@ -71,7 +69,6 @@ if __name__ == "__main__":
 
     fairness_model_eo = train_fairness_model(
         X_train, y_train, s_train,
-        preprocessor,
         constraint_name="equalized_odds"
     )
 
