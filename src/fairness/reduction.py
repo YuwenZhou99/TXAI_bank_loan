@@ -69,7 +69,7 @@ if __name__ == "__main__":
         X_test, y_test, s_test
     )
 
-    print("Equalized odds")
+    print("Equalized odds:")
     fairness_model_eo = train_fairness_model(
         X_train, y_train, s_train,
         constraint_name="equalized_odds"
