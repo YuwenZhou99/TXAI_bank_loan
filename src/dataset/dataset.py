@@ -37,8 +37,6 @@ def downsample_group(X, y, s, group_value, label_value = 1, keep_frac=0.6, seed=
     Xp = X if isinstance(X, pd.DataFrame) else pd.DataFrame(X)
     yp = y if isinstance(y, pd.Series) else pd.Series(y)
     sp = s if isinstance(s, pd.Series) else pd.Series(s)
-    print("gender unique:", sp.unique())
-    print("loan_status unique:", yp.unique())
 
     mask_target = (sp == group_value) & (yp == label_value)
     idx_target = yp[mask_target].index.to_numpy()

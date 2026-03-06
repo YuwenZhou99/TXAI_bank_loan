@@ -6,21 +6,15 @@ from sklearn.metrics import classification_report, roc_auc_score
 from fairlearn.metrics import demographic_parity_difference, equalized_odds_difference
 
 
-def train_model(X_train, y_train, preprocessor):
-    model = Pipeline(
-        steps=[
-            ("preprosessor", preprocessor),
-            ("classifier", LogisticRegression(max_iter=1000))
-        ]
-    )
-
+def train_model(X_train, y_train):
+    model = LogisticRegression(max_iter=1000)
     model.fit(X_train, y_train)
+
     return model
 
 
 def evaluate_model(model, X_test, y_test, sensitive_test):
     y_pred = model.predict(X_test)
-    y_prob = model.predict_proba(X_test)[:, 1]
 
     report = classification_report(
         y_test,
@@ -29,17 +23,15 @@ def evaluate_model(model, X_test, y_test, sensitive_test):
         zero_division=0
     )
 
-    auc = roc_auc_score(y_test, y_prob)
     # Fairness evaluation
     dp = demographic_parity_difference(y_test, y_pred, sensitive_features=sensitive_test)
     eo = equalized_odds_difference(y_test, y_pred, sensitive_features=sensitive_test)
 
     print(f"Classification report: {report}")
-    print(f"AUC: {auc:.4f}")
     print(f"Demographic Parity Difference: {dp:.4f}")
     print(f"Equalized Odds Difference: {eo:.4f}")
 
-    return report, auc, dp, eo
+    return report, dp, eo
 
 
 if __name__ == "__main__":
@@ -66,6 +58,8 @@ if __name__ == "__main__":
         keep_frac=0.6
     )
 
-    model = train_model(X_train, y_train, preprocessor)
+    X_train = preprocessor.fit_transform(X_train)
+    X_test = preprocessor.transform(X_test)
+    model = train_model(X_train, y_train)
 
     results = evaluate_model(model, X_test, y_test, s_test)
