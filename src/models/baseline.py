@@ -1,7 +1,7 @@
 from src.dataset.dataset import load_data, prepare_data, downsample_group
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import classification_report, roc_auc_score
+from sklearn.metrics import classification_report
 from fairlearn.metrics import demographic_parity_difference, equalized_odds_difference
 
 
