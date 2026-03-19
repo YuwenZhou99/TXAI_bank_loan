@@ -39,7 +39,12 @@ Run fairness model with equalized odds:
 python src/xai/shap_analysis.py --mode fairness --constraint equalized_odds
 ```
 
-## Authors
-- Yuwen Zhou (y.zhou.74@student.rug.nl)
-- Eli Baho (e.p.baho@student.rug.nl)
-- Marco Capoccia (m.capoccia@student.rug.nl)
+## Individual contributions
+
+We discussed all tasks in advance, divided them as evenly as possible among the group members, and all members agreed on the final distribution of work shown in the table below. Therefore, we believe all group members contributed equally to this assignment.
+
+| Name | Main Tasks | Other |
+|---|---|---|
+| Eli Baho | Methodology, Findings Subsections, Limitations | Review other tasks |
+| Marco Capoccia | Abstract, Introduction, Case Study, Analysis | Review other tasks |
+| Yuwen Zhou | Code Work, Plots, Experimental Setup | Review other tasks |
