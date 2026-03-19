@@ -40,7 +40,7 @@ if __name__ == "__main__":
     df = load_data(DATA_PATH)
     X, y, sensitive_features, preprocessor = prepare_data(df, sensitive_column)
 
-    X_train, X_test, y_train, y_test, s_train, s_test = train_test_split(
+    X_train_raw, X_test_raw, y_train, y_test, s_train, s_test = train_test_split(
         X,
         y,
         sensitive_features,
@@ -49,21 +49,24 @@ if __name__ == "__main__":
         stratify=y
     )
 
+    X_train = preprocessor.fit_transform(X_train_raw)
+    X_test = preprocessor.transform(X_test_raw)
+
     print("Original dataset:")
     model = train_model(X_train, y_train)
     results = evaluate_model(model, X_test, y_test, s_test)
 
     # downsampling
-    X_train, y_train, s_train = downsample_group(
-        X_train, y_train, s_train,
+    X_train_ds, y_train_ds, s_train_ds = downsample_group(
+        X_train_raw.copy(), y_train.copy(), s_train.copy(),
         group_value="female",
         label_value=1,
         keep_frac=0.6
     )
 
-    X_train = preprocessor.fit_transform(X_train)
-    X_test = preprocessor.transform(X_test)
+    X_train_ds = preprocessor.fit_transform(X_train_ds)
+    X_test_ds = preprocessor.transform(X_test_raw)
 
     print("After downsampling:")
-    model = train_model(X_train, y_train)
-    results = evaluate_model(model, X_test, y_test, s_test)
+    model = train_model(X_train_ds, y_train_ds)
+    results = evaluate_model(model, X_test_ds, y_test, s_test)
