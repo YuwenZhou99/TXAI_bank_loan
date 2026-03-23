@@ -21,22 +21,22 @@ pip install -r requirements.txt
 
 Run baseline model with original dataset:
 ```bash
-python src/xai/shap_analysis.py --mode original
+python -m src.xai.shap_analysis --mode original
 ```
 
 Run baseline model with downsampled dataset:
 ```bash
-python src/xai/shap_analysis.py --mode downsampled
+python -m src.xai.shap_analysis --mode downsampled
 ```
 
 Run fairness model with demographic parity:
 ```bash
-python src/xai/shap_analysis.py --mode fairness --constraint demographic_parity
+python -m src.xai.shap_analysis --mode fairness --constraint demographic_parity
 ```
 
 Run fairness model with equalized odds:
 ```bash
-python src/xai/shap_analysis.py --mode fairness --constraint equalized_odds
+python -m src.xai.shap_analysis --mode fairness --constraint equalized_odds
 ```
 
 ## Individual contributions

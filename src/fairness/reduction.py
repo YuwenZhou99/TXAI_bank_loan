@@ -32,7 +32,7 @@ def train_fairness_model(X_train, y_train, s_train, constraint_name="demographic
 
 
 if __name__ == "__main__":
-    DATA_PATH = "../dataset/loan_data.csv"
+    DATA_PATH = "src/dataset/loan_data.csv"
     sensitive_column = "person_gender"
 
     df = load_data(DATA_PATH)
